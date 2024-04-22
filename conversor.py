@@ -1,5 +1,5 @@
 def converte_base(numero, saida):
-    dic = {'10': 'A', '11': 'B', '12': 'c', '13': 'D', '14': 'E', '15': 'F'}
+    dic = {'10': 'A', '11': 'B', '12': 'C', '13': 'D', '14': 'E', '15': 'F'}
     resultado = []
     while numero >= saida:
         resultado.append(str(numero % saida))
