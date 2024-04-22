@@ -2,8 +2,8 @@ from tkinter import Tk, Label, Button, OptionMenu, StringVar
 from conversor import solicita_usuario
 
 
-WIDTH = 320
-HEIGHT = 420
+WIDTH = 325
+HEIGHT = 260
 X = [0, 65, 130, 195, 260, 160]
 Y0 = 55
 Y = [Y0, Y0 + 40, Y0 + 80, Y0 + 120, Y0 + 160]
@@ -32,13 +32,21 @@ def insert(text):
     input.config(text=input.cget('text') + text)
 
 
-def apagar():
-    input.config(text=input.cget('text')[0:-1])
+def apagar(index):
+    input.config(text=input.cget('text')[index:-1])
+    btn_apagar.config(
+        text='<=',
+        command=lambda: apagar(0)
+    )
 
 
 def converter():
     resultado = solicita_usuario(input.cget('text'), DIC[base_entrada.cget('text')], DIC[base_saida.cget('text')])
     input.config(text=resultado)
+    btn_apagar.config(
+        text='c',
+        command=lambda: apagar(-1)
+    )
 
 
 janela = Tk()
@@ -48,7 +56,7 @@ janela.config(
     height=HEIGHT
 )
 janela.resizable(
-    # width=False,
+    width=False,
     height=False
 )
 janela.config(
@@ -68,7 +76,7 @@ input.place(x=0, y=0)
 
 base_entrada = OptionMenu(
     janela,
-    StringVar(value='Bese de entrada'),
+    StringVar(value='Base de entrada'),
     *['Bin', 'Dec', 'Hex'],
 )
 base_entrada.config(
@@ -227,7 +235,7 @@ btn_apagar = Button(
     text='<=',
     font=('Arial', 15),
     width=5,
-    command=apagar
+    command=lambda: apagar(0)
 )
 btn_apagar.place(x=X[0], y=Y[3])
 
